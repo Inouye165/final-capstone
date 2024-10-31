@@ -1,0 +1,114 @@
+/* nav css */
+
+nav {
+    grid-area: nav;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+img.classLogo {
+    display: none;
+}
+
+ul.navMenu {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0px;
+}
+
+ul.navMenu > li {
+    font-family: 'inter';
+    font-weight: bold;
+    text-align: center;
+    margin: 5px auto;
+    list-style-type: none;
+}
+
+ul.navMenu > li > a:link {
+    text-decoration: none;
+}
+
+ul.navMenu > li > a:link, a:visited, a:active, a:hover {
+    color: black;
+}
+
+/* IPAD view */
+@media screen and (min-width: 600px) {
+    nav {
+        padding: 20px;
+
+        grid-area: nav;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+
+        width: calc(100% - 40px);
+    }
+
+    ul.navMenu {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    ul.navMenu > li {
+        display: flex;
+        align-items: center;
+        font-family: 'inter';
+        font-weight: bold;
+    }
+
+    ul.navMenu > li > a:link {
+        text-decoration: none;
+    }
+
+    ul.navMenu > li > a:link, a:visited, a:active, a:hover {
+        color: black;
+    }
+}
+
+/* Other screens view */
+@media screen and (min-width: 1080px) {
+    nav {
+        padding: 20px;
+
+        grid-area: nav;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    img.classLogo {
+        display: inline-block;
+        max-height: 60px;
+    }
+
+    ul.navMenu {
+        width: 70%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    ul.navMenu > li {
+        display: flex;
+        align-items: center;
+        font-family: 'inter';
+        font-weight: bold;
+    }
+
+    ul.navMenu > li > a:link {
+        text-decoration: none;
+    }
+
+    ul.navMenu > li > a:link, a:visited, a:active, a:hover {
+        color: black;
+    }
+}

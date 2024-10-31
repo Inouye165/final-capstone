@@ -1,0 +1,382 @@
+/**
+    Main css
+*/
+
+main {
+    grid-area: main;
+    width: 100vw;
+
+    display: grid;
+    grid-template-rows: auto minmax(400px, auto) minmax(400px, auto) minmax(400px, auto);
+    grid-template-areas:    "hero"
+                            "highlights"
+                            "testimonials"
+                            "about";
+}
+
+section {
+    padding: 0px;
+}
+
+section.oddSection {
+    background-color: #495E57;
+}
+
+section.evenSection {
+    color: black;
+}
+
+/** Hero Section */
+section.hero {
+    grid-area: hero;
+
+    display: grid;
+    grid-template-rows: minmax(50%, auto) minmax(50%, auto);
+    grid-template-columns: 100%;
+    grid-template-areas:    "hero_img"
+                            "heros_info";
+
+    height: 600px;
+}
+
+section.hero > img {
+    
+    grid-area: hero_img;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+section.hero > article {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr 1fr;
+    grid-template-areas:    "article_header"
+                            "article_sub_header"
+                            "article_info"
+                            "article_button";
+}
+
+section.hero > article > h2 {
+    grid-area: article_header;
+    font-size: 64px;
+    margin: 0px;
+    color: #F4CE14;
+}
+
+section.hero > article > h3 {
+    grid-area: article_sub_header;
+    font-size: 40px;
+    margin: 0px;
+}
+
+section.hero > article > p {
+    grid-area: article_info;
+    margin: 0px;
+    width: 75%;
+}
+
+section.hero > article > button {
+    grid-area: article_button;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #F4CE14;
+    width: 200px;
+}
+
+/** Highlight Section */
+section.highlights {
+    display: flex;
+    flex-direction: column;
+    grid-area: highlights;
+    padding: 20px;
+}
+
+section.highlights > h2 {
+    font-size: 48px;
+    margin: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+section.highlights > button {
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    background-color: #F4CE14;
+    height: 40px;
+    width: 200px;
+    margin: auto;
+}
+
+/** Testimonials */
+section.Testimonials {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+
+    grid-area: testimonials;
+}
+
+section.Testimonials > h2 {
+    width: 100%;
+    text-align: center;
+    color: #F4CE14;
+    font-size: 40px;
+    margin: 0px;
+}
+
+/** About */
+section.about {
+
+    grid-area: about;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+section.about > article {
+    width: 40%;
+    min-width: calc(100% - 80px);
+}
+
+section.about > article > h2 {
+    font-size: 64px;
+    margin: 0px;
+}
+
+section.about > article > h3 {
+    font-size: 40px;
+    margin: 0px;
+}
+
+section.about > article > p {
+    width: 75%;
+}
+
+section.about > article > button {
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #F4CE14;
+}
+
+section.about > img {
+
+    height: 350px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* IPAD view */
+@media screen and (min-width: 600px) {
+    main {
+        grid-area: main;
+    
+        display: grid;
+        grid-template-rows: minmax(auto, auto) minmax(400px, auto) minmax(400px, auto) minmax(400px, auto);
+        grid-template-areas:    "hero"
+                                "highlights"
+                                "testimonials"
+                                "about";
+    }
+    
+    section {
+        padding: 40px 10%;
+    }
+    
+    section.oddSection {
+        background-color: #495E57;
+    }
+    
+    section.evenSection {
+        color: black;
+    }
+    
+    /** Hero Section */
+    section.hero {
+    
+        grid-area: hero;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: auto;
+    }
+    
+    section.hero > article {
+        width: 40%;
+        height: 400px;
+        color: white;
+    }
+    
+    section.hero > article > h2 {
+        font-size: 64px;
+        margin: 0px;
+        color: #F4CE14;
+    }
+    
+    section.hero > article > h3 {
+        font-size: 40px;
+        margin: 0px;
+    }
+    
+    section.hero > article > p {
+        width: 75%;
+    }
+    
+    section.hero > article > button {
+        font-weight: bold;
+        padding: 10px 30px;
+        border-radius: 10px;
+        border: none;
+        background-color: #F4CE14;
+    }
+    
+    section.hero > img {
+    
+        position: relative;
+        right: 0px;
+        height: 350px;
+        width: 400px;
+        object-fit: cover;
+        border-radius: 18px;
+        margin: auto;
+    }
+    
+    /** Highlight Section */
+    section.highlights {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        grid-area: highlights;
+    }
+    
+    section.highlights > h2 {
+        font-size: 48px;
+        margin: 0px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+    
+    section.highlights > button {
+        font-weight: bold;
+        border-radius: 10px;
+        border: none;
+        background-color: #F4CE14;
+        width: 200px;
+        margin: 0px 40%;
+    }
+    
+    /** Testimonials */
+    section.Testimonials {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    
+        grid-area: testimonials;
+    }
+    
+    section.Testimonials > h2 {
+        width: 100%;
+        text-align: center;
+        color: #F4CE14;
+        font-size: 40px;
+        margin: 0px;
+    }
+    
+    /** About */
+    section.about {
+    
+        grid-area: about;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    
+    section.about > article {
+        width: 40%;
+        min-width: 400px;
+    }
+    
+    section.about > article > h2 {
+        font-size: 64px;
+        margin: 0px;
+    }
+    
+    section.about > article > h3 {
+        font-size: 40px;
+        margin: 0px;
+    }
+    
+    section.about > article > p {
+        width: 75%;
+    }
+    
+    section.about > article > button {
+        font-weight: bold;
+        padding: 10px 30px;
+        border-radius: 10px;
+        border: none;
+        background-color: #F4CE14;
+    }
+    
+    section.about > img {
+    
+        height: 350px;
+        width: 400px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+}
+
+/* Other screens view */
+@media screen and (min-width: 1080px) {
+    main {
+        grid-template-rows: auto minmax(400px, auto) minmax(300px, auto) minmax(300px, 400px);
+    }
+    section {
+        padding: 40px;
+    }
+
+    section.highlights {
+        padding: 20px 20%;
+    }
+
+    section.oddSection {
+        padding: 20px 20%;
+    }
+
+    section.evenSection {
+        padding: 20px 20%;
+    }
+
+    section.about > article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Testimonial */
+    section.Testimonials > h2 {
+       height: 50px;
+    }
+
+    /* About */
+}

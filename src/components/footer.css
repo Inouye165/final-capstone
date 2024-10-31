@@ -1,0 +1,55 @@
+/*
+    Footer.css
+*/
+
+footer {
+    padding: 40px;
+    background-color: #495E57;
+
+    grid-area: footer;
+
+    display: flex;
+    flex-direction: column;
+}
+
+footer > img {
+    width: 90%;
+    border-radius: 10%;
+    margin: auto;
+}
+
+footer > ul  {
+    list-style-type: none;
+    color: #F4CE14;
+    padding: 0px;
+}
+
+footer > ul > h3{
+    text-align: center;
+}  
+
+footer > ul > li {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+footer > ul > li > a:link {
+    text-decoration: none;
+}
+
+footer > ul > li > a:link, footer > ul > li > a:visited, footer > ul > li > a:active, footer > ul > li > a:hover {
+    color: white;
+}
+
+/* Other screens view */
+@media screen and (min-width: 1080px) {
+    footer {
+        padding: 20px 20%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    footer > img {
+        max-width: 400px;
+        margin: 0px;
+    }
+}

@@ -1,0 +1,30 @@
+/** testimonial.css */
+
+article.testimonial {
+    width: calc(30% - 40px);
+    min-width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    background-color: #EDEFEE;
+    padding: 20px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+article.testimonial > h3 {
+    text-align: left;
+    color: black;
+    width: 100%;
+    margin-top: 0px;
+}
+article.testimonial > img {
+    width: 30%;
+    border-radius: 20%;
+}
+article.testimonial > p {
+    width: calc(70% - 10px);
+    margin-left: 10px;
+}

@@ -1,0 +1,33 @@
+/* reservationResults */
+section.reservationResult {
+    background-color: #495E57;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+section.reservationResult > h3 {
+    text-align: center;
+    color: #F4CE14;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.homeBtn {
+    background-color: #F4CE14;
+    padding: 5px 10px;
+    max-width: 100px;
+    text-align: center;
+    border-radius: 10px;
+
+}
+
+.homeBtn:link, .homeBtn:visited, .homeBtn:active, .homeBtn:hover {
+    text-decoration: none;
+}  
