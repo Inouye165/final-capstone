@@ -1,50 +1,52 @@
+// BookingPage.js
 import React, { useState, useEffect } from 'react';
 import Reservations from './reservations';
-
-// Function to initialize and update available times
-const fetchAvailableTimes = async (date) => {
-    const times = await fetchAPI(date); // Wait for the API to respond
-    return times;
-};
+// If fetchAPI is available globally via a script tag, you may not need to import it.
+// Otherwise, import it if it's in a module.
+import { fetchAPI } from './api'; // Adjust the path if needed
 
 function BookingPage() {
-    const [formResData, setFormResData] = useState({
-        date: "",
-        time: "",
-        guests: 1,
-        occasion: "",
+  const [formResData, setFormResData] = useState({
+    date: '',
+    time: '',
+    guests: 1,
+    occasion: '',
+  });
+
+  const [availableTimes, setAvailableTimes] = useState([]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(`Field changed: ${name} = ${value}`);
+    setFormResData({
+      ...formResData,
+      [name]: value,
     });
-    const [availableTimes, setAvailableTimes] = useState([]); // State for times
+  };
 
-    // Fetch available times on component load or when the date changes
-    useEffect(() => {
-        if (formResData.date) {
-            const fetchTimes = async () => {
-                const times = await fetchAvailableTimes(new Date(formResData.date)); // Waits for data
-                setAvailableTimes(times); // Sets the state after data is fetched
-            };
-            fetchTimes(); // Calls the async function to fetch and set times
-        }
-    }, [formResData.date]);
+  useEffect(() => {
+    if (formResData.date) {
+      const fetchTimes = async () => {
+        console.log('Fetching available times for:', formResData.date);
+        // Ensure fetchAPI is correctly accessed
+        const times = await fetchAPI(new Date(formResData.date));
+        console.log('Fetched times:', times);
+        setAvailableTimes(times);
+      };
+      fetchTimes();
+    }
+  }, [formResData.date]);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormResData({
-            ...formResData,
-            [name]: value,
-        });
-    };
-
-    return (
-        <div>
-            <h2>Make a Reservation</h2>
-            <Reservations
-                formResData={formResData}
-                handleChange={handleChange}
-                availableTimes={availableTimes} // Pass available times to Reservations
-            />
-        </div>
-    );
+  return (
+    <div>
+      <h2>Make a Reservation</h2>
+      <Reservations
+        formResData={formResData}
+        handleChange={handleChange}
+        availableTimes={availableTimes}
+      />
+    </div>
+  );
 }
 
 export default BookingPage;

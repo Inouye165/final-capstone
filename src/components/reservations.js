@@ -9,29 +9,29 @@ const occasions = [
 ];
 
 function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
+    console.log("handleChange in Reservations:", handleChange); // Check if this shows up in console
     return (
         <section className="reservations">
             <img src={reservationImg} alt="restaurant food" />
             <form className="resForm" action="/reservationResult">
                 <h3>Table Reservation</h3>
-                
-                {/* Date input */}
+
                 <label htmlFor="res-date">Date</label>
                 <input
-                    name="date"
-                    value={formResData.date || ""} // Default to empty string if undefined
-                    onChange={handleChange}
-                    type="date"
-                    id="res-date"
-                    required
-                />
-                
-                {/* Time select */}
+    name="date"
+    value={formResData.date || ""}
+    onChange={(e) => console.log("Date field changed:", e.target.value)} // Inline handler for testing
+    type="date"
+    id="res-date"
+    required
+/>
+
+
                 <label htmlFor="res-time">Time</label>
                 <select
                     id="res-time"
                     name="time"
-                    value={formResData.time || ""} // Default to empty string if undefined
+                    value={formResData.time || ""}
                     onChange={handleChange}
                     required
                 >
@@ -45,21 +45,19 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
                         <option value="">No times available</option>
                     )}
                 </select>
-                
-                {/* Guests input */}
+
                 <label htmlFor="guests">Number of guests</label>
                 <input
                     name="guests"
                     type="number"
-                    value={formResData.guests || 1} // Default to 1 if undefined
+                    value={formResData.guests || 1}
                     min="1"
                     max="10"
                     id="guests"
                     onChange={handleChange}
                     required
                 />
-                
-                {/* Occasion select */}
+
                 <label htmlFor="occasion">Occasion</label>
                 <select
                     name="occasion"
@@ -74,8 +72,7 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
                         </option>
                     ))}
                 </select>
-                
-                {/* Submit button */}
+
                 <input
                     className="resFromBtn"
                     type="submit"
@@ -86,5 +83,6 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
         </section>
     );
 }
+
 
 export default Reservations;
