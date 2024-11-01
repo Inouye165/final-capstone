@@ -27,16 +27,16 @@ function BookingPage() {
   useEffect(() => {
     if (formResData.date) {
       const fetchTimes = async () => {
-        console.log('Fetching available times for:', formResData.date);
-        // Ensure fetchAPI is correctly accessed
-        const times = await fetchAPI(new Date(formResData.date));
+        const selectedDate = new Date(formResData.date);
+        console.log('Fetching available times for:', selectedDate); // Log the date
+        const times = await fetchAPI(selectedDate);
         console.log('Fetched times:', times);
         setAvailableTimes(times);
       };
       fetchTimes();
     }
   }, [formResData.date]);
-
+  
   return (
     <div>
       <h2>Make a Reservation</h2>
