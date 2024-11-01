@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Reservations from './reservations';
 import BookingTable from './BookingTable';
-import { fetchAPI } from './api'; // Ensure fetchAPI is available
+import { fetchAPI } from './api';
 
 function BookingPage() {
   const [formResData, setFormResData] = useState({
@@ -45,7 +45,7 @@ function BookingPage() {
         formResData={formResData}
         handleChange={handleChange}
         availableTimes={availableTimes}
-        onSubmit={handleSubmit} // Pass handleSubmit as onSubmit
+        onSubmit={handleSubmit} // Ensure handleSubmit is passed here
       />
       <h2>Reservations</h2>
       <BookingTable bookings={bookings} />
