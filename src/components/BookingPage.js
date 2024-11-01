@@ -1,6 +1,6 @@
 // BookingPage.js
 import React, { useState } from 'react';
-import Reservations from './Reservations';
+import Reservations from './reservations';
 
 function BookingPage() {
     const [formResData, setFormResData] = useState({
