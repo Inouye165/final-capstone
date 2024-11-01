@@ -1,38 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './reservations.css';
 import reservationImg from '../images/restauranfood.jpg';
 
-// Static options for time and occasion
-const availableTimes = [
-    { id: 0, time: '17:00' },
-    { id: 1, time: '18:00' },
-    { id: 2, time: '19:00' },
-    { id: 3, time: '20:00' },
-    { id: 4, time: '21:00' },
-    { id: 5, time: '22:00' },
-];
-
+// Static options for occasion
 const occasions = [
     { id: 0, title: 'Birthday' },
     { id: 1, title: 'Anniversary' },
 ];
 
-function Reservations() {
-    const [formResData, setFormResData] = useState({
-        date: "",
-        time: "",
-        guests: 1,
-        occasion: "",
-    });
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormResData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
+function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
     return (
         <section className="reservations">
             <img src={reservationImg} alt="restaurant food" />
@@ -43,7 +19,7 @@ function Reservations() {
                 <label htmlFor="res-date">Date</label>
                 <input
                     name="date"
-                    value={formResData.date}
+                    value={formResData.date || ""} // Default to empty string if undefined
                     onChange={handleChange}
                     type="date"
                     id="res-date"
@@ -55,15 +31,19 @@ function Reservations() {
                 <select
                     id="res-time"
                     name="time"
-                    value={formResData.time}
+                    value={formResData.time || ""} // Default to empty string if undefined
                     onChange={handleChange}
                     required
                 >
-                    {availableTimes.map(({ id, time }) => (
-                        <option key={id} value={time}>
-                            {time}
-                        </option>
-                    ))}
+                    {availableTimes.length > 0 ? (
+                        availableTimes.map((time, index) => (
+                            <option key={index} value={time}>
+                                {time}
+                            </option>
+                        ))
+                    ) : (
+                        <option value="">No times available</option>
+                    )}
                 </select>
                 
                 {/* Guests input */}
@@ -71,7 +51,7 @@ function Reservations() {
                 <input
                     name="guests"
                     type="number"
-                    value={formResData.guests}
+                    value={formResData.guests || 1} // Default to 1 if undefined
                     min="1"
                     max="10"
                     id="guests"
@@ -84,7 +64,7 @@ function Reservations() {
                 <select
                     name="occasion"
                     id="occasion"
-                    value={formResData.occasion}
+                    value={formResData.occasion || ""}
                     onChange={handleChange}
                     required
                 >
