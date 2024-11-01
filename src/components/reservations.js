@@ -1,43 +1,21 @@
+// reservations.js
 import React from 'react';
 import './reservations.css';
-import reservationImg from '../images/restauranfood.jpg';
-import { useNavigate } from 'react-router-dom';
 
-const occasions = [
-  { id: 0, title: 'Birthday' },
-  { id: 1, title: 'Anniversary' },
-];
-
-function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
-  const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the form from submitting and reloading the page
-    // You can add form validation or submission logic here
-    // For example, navigate to a confirmation page:
-    navigate('/reservationResult');
-  };
-
+function Reservations({ formResData, handleChange, availableTimes, onSubmit }) {
   return (
     <section className="reservations">
-      <img src={reservationImg} alt="restaurant food" />
-      <form className="resForm" onSubmit={handleSubmit}>
+      <form className="resForm" onSubmit={onSubmit}>
         <h3>Table Reservation</h3>
-
-        {/* Date input */}
         <label htmlFor="res-date">Date</label>
-    <input
-        name="date"
-        value={formResData.date || ''}
-        onChange={handleChange}
-        type="date"
-        id="res-date"
-        required
-    />
-
-
-
-        {/* Time select */}
+        <input
+          name="date"
+          value={formResData.date || ''}
+          onChange={handleChange}
+          type="date"
+          id="res-date"
+          required
+        />
         <label htmlFor="res-time">Time</label>
         <select
           id="res-time"
@@ -56,8 +34,6 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
             <option value="">No times available</option>
           )}
         </select>
-
-        {/* Guests input */}
         <label htmlFor="guests">Number of guests</label>
         <input
           name="guests"
@@ -69,8 +45,6 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
           onChange={handleChange}
           required
         />
-
-        {/* Occasion select */}
         <label htmlFor="occasion">Occasion</label>
         <select
           name="occasion"
@@ -79,20 +53,10 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
           onChange={handleChange}
           required
         >
-          {occasions.map(({ id, title }) => (
-            <option key={id} value={title}>
-              {title}
-            </option>
-          ))}
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
         </select>
-
-        {/* Submit button */}
-        <input
-          className="resFormBtn"
-          type="submit"
-          value="Make Your Reservation"
-          role="submitBtn"
-        />
+        <button type="submit">Make Your Reservation</button>
       </form>
     </section>
   );
