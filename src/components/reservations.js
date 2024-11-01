@@ -26,14 +26,16 @@ function Reservations({ formResData = {}, handleChange, availableTimes = [] }) {
 
         {/* Date input */}
         <label htmlFor="res-date">Date</label>
-        <input
-          name="date"
-          value={formResData.date || ''}
-          onChange={handleChange}
-          type="date"
-          id="res-date"
-          required
-        />
+    <input
+        name="date"
+        value={formResData.date || ''}
+        onChange={handleChange}
+        type="date"
+        id="res-date"
+        required
+    />
+
+
 
         {/* Time select */}
         <label htmlFor="res-time">Time</label>

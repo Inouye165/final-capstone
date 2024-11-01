@@ -4,6 +4,8 @@ import Reservations from './reservations';
 // If fetchAPI is available globally via a script tag, you may not need to import it.
 // Otherwise, import it if it's in a module.
 import { fetchAPI } from './api'; // Adjust the path if needed
+// Inside BookingPage.js, at the top of the file or inside useEffect
+console.log("Is fetchAPI available:", typeof fetchAPI !== "undefined");
 
 function BookingPage() {
   const [formResData, setFormResData] = useState({
@@ -17,22 +19,37 @@ function BookingPage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(`Field changed: ${name} = ${value}`);
-    setFormResData({
-      ...formResData,
+    console.log(`Field changed: ${name} = ${value}`); // Log each change
+  
+    setFormResData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
+  
+   
 
   useEffect(() => {
-    if (formResData.date) {
-      const fetchTimes = async () => {
-        const selectedDate = new Date(formResData.date);
-        console.log('Fetching available times for:', selectedDate); // Log the date
+    console.log('useEffect triggered with date:', formResData.date);
+    
+    const fetchTimes = async () => {
+      const selectedDate = new Date(formResData.date).toISOString().split('T')[0]; // Use the selected date
+      console.log('Formatted date for fetchAPI:', selectedDate);
+  
+      try {
         const times = await fetchAPI(selectedDate);
-        console.log('Fetched times:', times);
+        if (Array.isArray(times) && times.length === 0) {
+          console.log('fetchAPI returned an empty array.');
+        } else {
+          console.log('Times returned from fetchAPI:', times);
+        }
         setAvailableTimes(times);
-      };
+      } catch (error) {
+        console.error('Error fetching times:', error);
+      }
+    };
+  
+    if (formResData.date) {
       fetchTimes();
     }
   }, [formResData.date]);
