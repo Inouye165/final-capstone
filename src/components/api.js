@@ -1,17 +1,11 @@
 // api.js
+export const fetchAPI = async (date) => {
+  // Simulate fetching available times from an API
+  return ['17:00', '18:00', '19:00', '20:00', '21:00'];
+};
 
-// Mock implementation of fetchAPI
-// api.js
-
-export const fetchAPI = (date) => {
-    console.log("fetchAPI called with date:", date); // Log to check if function is called
-    // Return a static list of times for testing
-    return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
-  };
-  
-  
-  // Mock implementation of submitAPI (optional)
-  export const submitAPI = (formData) => {
-    // Simulate a successful submission
-    return true;
-  };
+export const submitAPI = (formData) => {
+  // Simulate submitting the form data to an API
+  console.log('Form Data Submitted:', formData);
+  return true; // Return true to simulate a successful submission
+};

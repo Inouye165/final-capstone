@@ -1,64 +1,64 @@
 // reservations.js
 import React from 'react';
-import './reservations.css';
 
 function Reservations({ formResData, handleChange, availableTimes, onSubmit }) {
   return (
-    <section className="reservations">
-      <form className="resForm" onSubmit={onSubmit}>
-        <h3>Table Reservation</h3>
-        <label htmlFor="res-date">Date</label>
+    <form onSubmit={onSubmit}>
+      {/* Form fields */}
+      <label>
+        Date:
         <input
-          name="date"
-          value={formResData.date || ''}
-          onChange={handleChange}
           type="date"
-          id="res-date"
+          name="date"
+          value={formResData.date}
+          onChange={handleChange}
           required
         />
-        <label htmlFor="res-time">Time</label>
+      </label>
+      <label>
+        Time:
         <select
-          id="res-time"
           name="time"
-          value={formResData.time || ''}
+          value={formResData.time}
           onChange={handleChange}
           required
         >
-          {availableTimes.length > 0 ? (
-            availableTimes.map((time, index) => (
-              <option key={index} value={time}>
-                {time}
-              </option>
-            ))
-          ) : (
-            <option value="">No times available</option>
-          )}
+          <option value="">Select time</option>
+          {availableTimes.map((time) => (
+            <option key={time} value={time}>
+              {time}
+            </option>
+          ))}
         </select>
-        <label htmlFor="guests">Number of guests</label>
+      </label>
+      <label>
+        Number of Guests:
         <input
-          name="guests"
           type="number"
-          value={formResData.guests || 1}
+          name="guests"
+          value={formResData.guests}
+          onChange={handleChange}
           min="1"
           max="10"
-          id="guests"
-          onChange={handleChange}
           required
         />
-        <label htmlFor="occasion">Occasion</label>
+      </label>
+      <label>
+        Occasion:
         <select
           name="occasion"
-          id="occasion"
-          value={formResData.occasion || ''}
+          value={formResData.occasion}
           onChange={handleChange}
           required
         >
+          <option value="">Select an occasion</option>
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
+          <option value="Other">Other</option>
         </select>
-        <button type="submit">Make Your Reservation</button>
-      </form>
-    </section>
+      </label>
+      <button type="submit">Reserve</button>
+    </form>
   );
 }
 

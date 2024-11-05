@@ -1,8 +1,9 @@
 // BookingPage.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Reservations from './reservations';
 import BookingTable from './BookingTable';
-import { fetchAPI } from './api';
+import { fetchAPI, submitAPI } from './api';
 
 function BookingPage() {
   const [formResData, setFormResData] = useState({
@@ -12,7 +13,13 @@ function BookingPage() {
     occasion: '',
   });
   const [availableTimes, setAvailableTimes] = useState([]);
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState(() => {
+    // Load bookings from local storage on initial render
+    const savedBookings = localStorage.getItem('bookings');
+    return savedBookings ? JSON.parse(savedBookings) : [];
+  });
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,7 +31,17 @@ function BookingPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setBookings((prevBookings) => [...prevBookings, formResData]);
+    const response = submitAPI(formResData);
+    if (response === true) {
+      // Update bookings state
+      const updatedBookings = [...bookings, formResData];
+      setBookings(updatedBookings);
+      // Save bookings to local storage
+      localStorage.setItem('bookings', JSON.stringify(updatedBookings));
+      navigate('/confirmed');
+    } else {
+      alert('There was an error submitting your booking. Please try again.');
+    }
   };
 
   useEffect(() => {
@@ -45,7 +62,7 @@ function BookingPage() {
         formResData={formResData}
         handleChange={handleChange}
         availableTimes={availableTimes}
-        onSubmit={handleSubmit} // Ensure handleSubmit is passed here
+        onSubmit={handleSubmit}
       />
       <h2>Reservations</h2>
       <BookingTable bookings={bookings} />
