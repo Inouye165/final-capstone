@@ -1,31 +1,89 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import BookingPage from './BookingPage.js'; 
-import { initializeTimes, updateTimes } from './api'; // Adjust the import path as needed
-import { fetchAPI } from './api';
+import Reservations from './components/reservations';
 
-// Mock the fetchAPI function
-jest.mock('./api', () => ({
-  ...jest.requireActual('./api'),
-  fetchAPI: jest.fn(() => ['17:00', '18:00', '19:00']),
-}));
+test('renders form elements and interacts with local storage', () => {
+  // Mock props
+  const mockFormResData = {
+    date: '',
+    time: '',
+    guests: 1,
+    occasion: '',
+  };
+  const mockHandleChange = jest.fn();
+  const mockAvailableTimes = ['17:00', '18:00', '19:00'];
+  const mockOnSubmit = jest.fn(); 
 
-describe('Bookings Component and API Functions', () => {
-  test('renders static text in the BookingPage component', () => {
-    render(<BookingPage />);
-    const staticTextElement = screen.getByText(/Make a Reservation/i); // Replace with actual static text from your component
-    expect(staticTextElement).toBeInTheDocument();
+  // Render the component
+  render(
+    <Reservations
+      formResData={mockFormResData}
+      handleChange={mockHandleChange}
+      availableTimes={mockAvailableTimes}
+      onSubmit={mockOnSubmit} 
+    />
+  );
+
+  // Test for presence of form elements
+  const dateInput = screen.getByLabelText(/date/i);
+  expect(dateInput).toBeInTheDocument();
+
+  const timeSelect = screen.getByLabelText(/time/i);
+  expect(timeSelect).toBeInTheDocument();
+
+  const guestsInput = screen.getByLabelText(/number of guests/i);
+  expect(guestsInput).toBeInTheDocument();
+
+  const occasionSelect = screen.getByLabelText(/occasion/i);
+  expect(occasionSelect).toBeInTheDocument();
+
+  const submitButton = screen.getByRole('button', { name: /reserve/i });
+  expect(submitButton).toBeInTheDocument();
+
+  // --- Test writing to local storage ---
+  // Mock localStorage before each interaction
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+    },
+    writable: true,
   });
 
-  test('initializeTimes returns non-empty array of available times', () => {
-    const times = initializeTimes();
-    expect(times).toEqual(['17:00', '18:00', '19:00']); // Ensure it matches the mock data
+  fireEvent.click(submitButton); 
+
+  // Assert that localStorage.setItem was called with the correct data and key
+  expect(localStorage.setItem).toHaveBeenCalledWith('reservationData', JSON.stringify(mockFormResData)); 
+
+  // --- Test reading from local storage ---
+  const mockLocalStorageData = { 
+    date: '2024-12-25', 
+    time: '19:00', 
+    guests: 4, 
+    occasion: 'Christmas' 
+  };
+
+  // Mock localStorage again before reading
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: jest.fn(() => JSON.stringify(mockLocalStorageData)),
+      setItem: jest.fn(),
+    },
+    writable: true,
   });
 
-  test('updateTimes updates the available times based on the selected date', () => {
-    const date = new Date().toISOString().split('T')[0]; // Use a sample date
-    const initialTimes = ['17:00', '18:00'];
-    const updatedTimes = updateTimes(initialTimes, date);
-    expect(updatedTimes).toEqual(['17:00', '18:00', '19:00']); // Check it matches the mock return value
-  });
-});
+  // Re-render the component to simulate reading from localStorage on mount
+  render(
+    <Reservations
+      formResData={mockFormResData} 
+      handleChange={mockHandleChange}
+      availableTimes={mockAvailableTimes}
+      onSubmit={mockOnSubmit} 
+    />
+  );
+
+  // Assert that the form fields reflect the data from localStorage
+  expect(dateInput.value).toBe(mockLocalStorageData.date); 
+  // Add similar assertions for time, guests, and occasion
+});w
