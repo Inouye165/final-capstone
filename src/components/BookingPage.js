@@ -36,13 +36,11 @@ function BookingPage() {
       // Update bookings state
       const updatedBookings = [...bookings, formResData];
       setBookings(updatedBookings);
-  
-      // Save updated bookings array to local storage
-      localStorage.setItem('bookings', JSON.stringify(updatedBookings)); 
-  
+      // Save bookings to local storage
+      localStorage.setItem('bookings', JSON.stringify(updatedBookings));
       navigate('/confirmed');
-    } else { 
-      // ... error handling ...
+    } else {
+      alert('There was an error submitting your booking. Please try again.');
     }
   };
 

@@ -13,6 +13,8 @@ function Reservations({ formResData, handleChange, availableTimes, onSubmit }) {
           value={formResData.date}
           onChange={handleChange}
           required
+          //min={new Date().toISOString().split("T")[0]} // block passed dates
+
         />
       </label>
       <label>
