@@ -1,65 +1,51 @@
-// reservations.js
 import React from 'react';
 
 function Reservations({ formResData, handleChange, availableTimes, onSubmit }) {
   return (
-    <form onSubmit={onSubmit}>
-      {/* Form fields */}
-      <label>
-        Date:
+    <form onSubmit={onSubmit} aria-labelledby="reservationFormTitle">
+      <h2 id="reservationFormTitle">Make a Reservation</h2>
+
+      <div>
+        <label htmlFor="date">Date</label>
         <input
           type="date"
+          id="date"
           name="date"
           value={formResData.date}
           onChange={handleChange}
-          required
-          //min={new Date().toISOString().split("T")[0]} // block passed dates
-
+          aria-required="true"
         />
-      </label>
-      <label>
-        Time:
+      </div>
+
+      <div>
+        <label htmlFor="time">Time</label>
         <select
+          id="time"
           name="time"
           value={formResData.time}
           onChange={handleChange}
-          required
+          aria-required="true"
         >
-          <option value="">Select time</option>
           {availableTimes.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
+            <option key={time} value={time}>{time}</option>
           ))}
         </select>
-      </label>
-      <label>
-        Number of Guests:
+      </div>
+
+      <div>
+        <label htmlFor="guests">Number of Guests</label>
         <input
           type="number"
+          id="guests"
           name="guests"
+          min="1"
           value={formResData.guests}
           onChange={handleChange}
-          min="1"
-          max="10"
-          required
+          aria-required="true"
         />
-      </label>
-      <label>
-        Occasion:
-        <select
-          name="occasion"
-          value={formResData.occasion}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select an occasion</option>
-          <option value="Birthday">Birthday</option>
-          <option value="Anniversary">Anniversary</option>
-          <option value="Other">Other</option>
-        </select>
-      </label>
-      <button type="submit">Reserve</button>
+      </div>
+
+      <button type="submit">Submit Reservation</button>
     </form>
   );
 }

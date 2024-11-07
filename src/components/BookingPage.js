@@ -1,4 +1,3 @@
-// BookingPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Reservations from './reservations';
@@ -14,11 +13,10 @@ function BookingPage() {
   });
   const [availableTimes, setAvailableTimes] = useState([]);
   const [bookings, setBookings] = useState(() => {
-    // Load bookings from local storage on initial render
     const savedBookings = localStorage.getItem('bookings');
     return savedBookings ? JSON.parse(savedBookings) : [];
   });
-
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -33,14 +31,12 @@ function BookingPage() {
     event.preventDefault();
     const response = submitAPI(formResData);
     if (response === true) {
-      // Update bookings state
       const updatedBookings = [...bookings, formResData];
       setBookings(updatedBookings);
-      // Save bookings to local storage
       localStorage.setItem('bookings', JSON.stringify(updatedBookings));
       navigate('/confirmed');
     } else {
-      alert('There was an error submitting your booking. Please try again.');
+      setError('There was an error submitting your booking. Please try again.');
     }
   };
 
@@ -57,7 +53,11 @@ function BookingPage() {
 
   return (
     <div>
-      <h2>Make a Reservation</h2>
+      {error && (
+        <div role="alert" aria-live="assertive" style={{ color: 'red' }}>
+          {error}
+        </div>
+      )}
       <Reservations
         formResData={formResData}
         handleChange={handleChange}
